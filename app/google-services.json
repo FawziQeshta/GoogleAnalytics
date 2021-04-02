@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "1019264913406",
+    "firebase_url": "https://fcmfirebaseproject-11e22.firebaseio.com",
+    "project_id": "fcmfirebaseproject-11e22",
+    "storage_bucket": "fcmfirebaseproject-11e22.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1019264913406:android:3dbe16db14103059867aaf",
+        "android_client_info": {
+          "package_name": "com.fawzi.googleanalytics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1019264913406-a42rkii7qmhrmnv6rm7ktubetklhf177.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD49QFvyjFSqWDfHJ-5_Pah7M1-k3ySrPU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1019264913406-a42rkii7qmhrmnv6rm7ktubetklhf177.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1019264913406:android:97dfe15561d16ff2867aaf",
+        "android_client_info": {
+          "package_name": "ps.edu.ucas.fawzi.chatting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1019264913406-mqnojl52lerptad2ecejgj45pffh3h8t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ps.edu.ucas.fawzi.chatting",
+            "certificate_hash": "1c36a540b2ccc034145f3ccfc0045116900781b6"
+          }
+        },
+        {
+          "client_id": "1019264913406-a42rkii7qmhrmnv6rm7ktubetklhf177.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD49QFvyjFSqWDfHJ-5_Pah7M1-k3ySrPU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1019264913406-a42rkii7qmhrmnv6rm7ktubetklhf177.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
