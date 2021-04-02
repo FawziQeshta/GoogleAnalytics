@@ -11,6 +11,7 @@ import com.fawzi.googleanalytics.databinding.ActivityProductsBinding;
 import com.fawzi.googleanalytics.models.Product;
 import com.fawzi.googleanalytics.ui.main.CategoryAdapter;
 import com.fawzi.googleanalytics.ui.main.MainPresenter;
+import com.fawzi.googleanalytics.utils.Utilities;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class ProductsActivity extends AppCompatActivity implements ProductPresen
 
         presenter.loadProducts(getProductCollection());
 
+        Utilities.sendScreenTrackToFirebase(this,"ProductsScreen","ProductsActivity");
 
         binding.toolbar.setNavigationIcon(R.drawable.ic_back);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {

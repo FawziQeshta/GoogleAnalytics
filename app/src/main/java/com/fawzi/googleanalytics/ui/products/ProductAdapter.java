@@ -12,10 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.fawzi.googleanalytics.R;
 import com.fawzi.googleanalytics.databinding.ItemProductBinding;
 import com.fawzi.googleanalytics.models.Product;
 import com.fawzi.googleanalytics.ui.product_details.ProductDetailsActivity;
+import com.fawzi.googleanalytics.utils.Utilities;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -72,6 +72,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Utilities.sendClickedEventToFirebase(context, "products", "clicked_product_" + product.getName());
                 Intent intent = new Intent(context, ProductDetailsActivity.class);
                 intent.putExtra("Product", product);
                 context.startActivity(intent);

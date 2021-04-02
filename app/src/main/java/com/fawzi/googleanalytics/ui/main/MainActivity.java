@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.fawzi.googleanalytics.databinding.ActivityMainBinding;
 import com.fawzi.googleanalytics.models.Category;
+import com.fawzi.googleanalytics.utils.Utilities;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
 
         presenter.loadCategories();
 
+        Utilities.sendScreenTrackToFirebase(this,"CategoriesScreen","MainActivity");
 
     }
 

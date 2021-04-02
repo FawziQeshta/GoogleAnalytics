@@ -12,11 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.fawzi.googleanalytics.R;
 import com.fawzi.googleanalytics.databinding.ItemCategoryBinding;
 import com.fawzi.googleanalytics.models.Category;
 import com.fawzi.googleanalytics.ui.products.ProductsActivity;
 import com.fawzi.googleanalytics.utils.Constants;
+import com.fawzi.googleanalytics.utils.Utilities;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -72,6 +72,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MainCa
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Utilities.sendClickedEventToFirebase(context, "categories", "clicked_category_" + category.getName());
                 Intent intent = new Intent(context, ProductsActivity.class);
                 intent.putExtra("productCollection", checkCategory(category));
                 context.startActivity(intent);

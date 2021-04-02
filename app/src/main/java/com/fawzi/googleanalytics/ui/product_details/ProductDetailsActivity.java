@@ -14,6 +14,7 @@ import com.fawzi.googleanalytics.R;
 import com.fawzi.googleanalytics.databinding.ActivityProductDetailsBinding;
 import com.fawzi.googleanalytics.databinding.ActivityProductsBinding;
 import com.fawzi.googleanalytics.models.Product;
+import com.fawzi.googleanalytics.utils.Utilities;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -32,6 +33,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         getDataIntent();
+
+        Utilities.sendScreenTrackToFirebase(this,"ProductDetailsScreen","ProductDetailsActivity");
 
         binding.toolbar.setNavigationIcon(R.drawable.ic_back);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
