@@ -12,9 +12,8 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.fawzi.googleanalytics.R;
 import com.fawzi.googleanalytics.databinding.ActivityProductDetailsBinding;
-import com.fawzi.googleanalytics.databinding.ActivityProductsBinding;
 import com.fawzi.googleanalytics.models.Product;
-import com.fawzi.googleanalytics.utils.Utilities;
+import com.fawzi.googleanalytics.utils.GoogleAnalytics;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -26,6 +25,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     private static final String TAG = "ProductDetailsActivity";
 
+    private long startTime;
+    private long elapsedTime = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +36,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         getDataIntent();
 
-        Utilities.sendScreenTrackToFirebase(this,"ProductDetailsScreen","ProductDetailsActivity");
+        GoogleAnalytics.sendScreenTrackToFirebase(this,"ProductDetailsScreen","ProductDetailsActivity");
+
+        startTime = System.currentTimeMillis();
+        elapsedTime = 0;
 
         binding.toolbar.setNavigationIcon(R.drawable.ic_back);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -66,6 +71,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 Glide.with(getApplicationContext())
                         .load(uri)
                         .centerCrop()
+                        .skipMemoryCache(true)
                         .into(binding.imageView);
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -75,6 +81,22 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 Log.e(TAG, "onFailure: " + exception.getMessage());
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        elapsedTime = elapsedTime + (System.currentTimeMillis() - startTime);
+        int seconds = (int) ((elapsedTime / 1000) % 60);
+        int minutes = (int) ((elapsedTime / 1000) / 60);
+        GoogleAnalytics.sendUserTrackedScreenTime(minutes + ":" + seconds, "ProductDetailsActivity");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startTime = System.currentTimeMillis();
+        elapsedTime = 0;
     }
 
 }

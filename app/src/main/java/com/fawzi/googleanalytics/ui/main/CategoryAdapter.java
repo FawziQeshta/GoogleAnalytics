@@ -16,7 +16,7 @@ import com.fawzi.googleanalytics.databinding.ItemCategoryBinding;
 import com.fawzi.googleanalytics.models.Category;
 import com.fawzi.googleanalytics.ui.products.ProductsActivity;
 import com.fawzi.googleanalytics.utils.Constants;
-import com.fawzi.googleanalytics.utils.Utilities;
+import com.fawzi.googleanalytics.utils.GoogleAnalytics;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -59,6 +59,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MainCa
                 Glide.with(context.getApplicationContext())
                         .load(uri)
                         .centerCrop()
+                        .skipMemoryCache(true)
                         .into(holder.binding.categoryImage);
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -72,7 +73,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MainCa
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utilities.sendClickedEventToFirebase(context, "categories", "clicked_category_" + category.getName());
+                GoogleAnalytics.sendClickedEventToFirebase(context, "categories", "clicked_category_" + category.getName());
                 Intent intent = new Intent(context, ProductsActivity.class);
                 intent.putExtra("productCollection", checkCategory(category));
                 context.startActivity(intent);

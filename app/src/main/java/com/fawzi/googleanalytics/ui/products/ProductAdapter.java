@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 import com.fawzi.googleanalytics.databinding.ItemProductBinding;
 import com.fawzi.googleanalytics.models.Product;
 import com.fawzi.googleanalytics.ui.product_details.ProductDetailsActivity;
-import com.fawzi.googleanalytics.utils.Utilities;
+import com.fawzi.googleanalytics.utils.GoogleAnalytics;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -59,6 +59,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
                 Glide.with(context.getApplicationContext())
                         .load(uri)
                         .centerCrop()
+                        .skipMemoryCache(true)
                         .into(holder.binding.productImage);
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -72,7 +73,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utilities.sendClickedEventToFirebase(context, "products", "clicked_product_" + product.getName());
+                GoogleAnalytics.sendClickedEventToFirebase(context, "products", "clicked_product_" + product.getName());
                 Intent intent = new Intent(context, ProductDetailsActivity.class);
                 intent.putExtra("Product", product);
                 context.startActivity(intent);

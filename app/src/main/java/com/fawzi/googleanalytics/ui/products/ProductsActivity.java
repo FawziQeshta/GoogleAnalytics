@@ -9,9 +9,7 @@ import android.view.View;
 import com.fawzi.googleanalytics.R;
 import com.fawzi.googleanalytics.databinding.ActivityProductsBinding;
 import com.fawzi.googleanalytics.models.Product;
-import com.fawzi.googleanalytics.ui.main.CategoryAdapter;
-import com.fawzi.googleanalytics.ui.main.MainPresenter;
-import com.fawzi.googleanalytics.utils.Utilities;
+import com.fawzi.googleanalytics.utils.GoogleAnalytics;
 
 import java.util.List;
 
@@ -19,17 +17,25 @@ public class ProductsActivity extends AppCompatActivity implements ProductPresen
 
     private ActivityProductsBinding binding;
 
+    private long startTime;
+    private long elapsedTime = 0;
+
+    private ProductPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityProductsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        ProductPresenter presenter = new ProductPresenter(this, this);
+        presenter = new ProductPresenter(this, this);
 
         presenter.loadProducts(getProductCollection());
 
-        Utilities.sendScreenTrackToFirebase(this,"ProductsScreen","ProductsActivity");
+        GoogleAnalytics.sendScreenTrackToFirebase(this,"ProductsScreen","ProductsActivity");
+
+        startTime = System.currentTimeMillis();
+        elapsedTime = 0;
 
         binding.toolbar.setNavigationIcon(R.drawable.ic_back);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -53,6 +59,22 @@ public class ProductsActivity extends AppCompatActivity implements ProductPresen
         binding.rvProducts.setLayoutManager(new LinearLayoutManager(this));
         binding.rvProducts.setHasFixedSize(true);
         binding.rvProducts.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        elapsedTime = elapsedTime + (System.currentTimeMillis() - startTime);
+        int seconds = (int) ((elapsedTime / 1000) % 60);
+        int minutes = (int) ((elapsedTime / 1000) / 60);
+        GoogleAnalytics.sendUserTrackedScreenTime(minutes + ":" + seconds, "ProductsActivity");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startTime = System.currentTimeMillis();
+        elapsedTime = 0;
     }
 
 }
